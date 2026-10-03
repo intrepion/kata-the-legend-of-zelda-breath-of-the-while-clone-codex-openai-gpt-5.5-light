@@ -56,13 +56,29 @@ _Avoid_: Button, switch
 The shared resource that limits sustained traversal verbs and makes route choice meaningful.
 _Avoid_: Energy, endurance meter
 
+**Stamina Wheel**:
+The compact HUD element that communicates remaining stamina during climbing, gliding, and sprinting.
+_Avoid_: Stamina bar, energy meter
+
 **Climbable Surface**:
 An authored cliff face, ruin wall, or other surface that supports climbing in the Plateau Slice.
 _Avoid_: Any wall, climb zone
 
+**Climbing**:
+The traversal verb entered near a climbable surface that lets the adventurer move vertically while stamina drains.
+_Avoid_: Wall crawling, scaling
+
+**Gliding**:
+The traversal verb started while airborne after the glider is earned, letting the adventurer trade height for distance.
+_Avoid_: Flying, parachuting
+
 **Traversal Verb**:
 A player movement action that changes how the region can be crossed, such as climbing, gliding, jumping, or swimming.
 _Avoid_: Move, ability, control
+
+**Context Prompt**:
+A short on-screen prompt that appears only when the adventurer can perform a nearby interaction.
+_Avoid_: Tutorial text, instruction panel
 
 **Enemy Camp**:
 A small hostile site that creates risk, rewards observation, and offers optional combat within the region.
@@ -83,6 +99,10 @@ _Avoid_: Loot, equipment system, inventory item
 **Recovery Point**:
 A tower or shrine entrance where the adventurer resumes after health loss.
 _Avoid_: Checkpoint, save point, respawn
+
+**Slice Progress**:
+The locally persisted completion state for tower activation, glider ownership, shrine completion, spirit tokens, and the latest recovery point.
+_Avoid_: Save file, account progress, profile
 
 **Spirit Token**:
 The progression reward earned from completing a shrine.
