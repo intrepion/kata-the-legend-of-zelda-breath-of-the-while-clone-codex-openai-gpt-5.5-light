@@ -20,9 +20,21 @@ _Avoid_: MVP, demo, first level
 A visible destination that attracts the player through silhouette, height, motion, light, smoke, or contrast.
 _Avoid_: Point of interest, marker, waypoint
 
+**Compass Pip**:
+A soft directional hint for a discovered landmark after tower activation.
+_Avoid_: Quest marker, objective arrow, waypoint
+
+**Vista**:
+A high or open view that confirms progress, previews future destinations, or closes a traversal sequence.
+_Avoid_: Viewpoint, overlook, scenic spot
+
 **Tower**:
 A high landmark that reveals region knowledge and gives the player a strategic view of the surrounding wilderness.
 _Avoid_: Map unlock, beacon
+
+**Tower Reveal**:
+The tower activation moment that exposes shrine light, camp smoke, climbable route hints, and a minimal region sketch.
+_Avoid_: Map completion, objective unlock
 
 **Glider**:
 The traversal tool earned at the tower that lets the player cross height and distance after leaving the summit.
@@ -35,6 +47,10 @@ _Avoid_: Dungeon, puzzle room, level
 **Physics Shrine**:
 A shrine centered on blocks, pressure plates, ramps, and spatial reasoning.
 _Avoid_: Physics level, block puzzle
+
+**Pressure Plate**:
+A shrine mechanism that responds to a block or player weight and opens the path toward the spirit token.
+_Avoid_: Button, switch
 
 **Stamina**:
 The shared resource that limits sustained traversal verbs and makes route choice meaningful.
@@ -52,9 +68,21 @@ _Avoid_: Move, ability, control
 A small hostile site that creates risk, rewards observation, and offers optional combat within the region.
 _Avoid_: Combat arena, mob pack
 
+**Scrap Scout**:
+A simple original enemy with patrol, alert, chase, and attack behavior in an enemy camp.
+_Avoid_: Bokoblin, monster, raider
+
+**Adventurer**:
+The original player character: a cel-shaded traveler with a cloak, pack, short sword, and glider rig.
+_Avoid_: Link, hero, player pawn
+
 **Weapon Pickup**:
 A lightweight piece of gear found or earned in the region that changes the player's combat options without creating a durability economy.
 _Avoid_: Loot, equipment system, inventory item
+
+**Recovery Point**:
+A tower or shrine entrance where the adventurer resumes after health loss.
+_Avoid_: Checkpoint, save point, respawn
 
 **Spirit Token**:
 The progression reward earned from completing a shrine.
