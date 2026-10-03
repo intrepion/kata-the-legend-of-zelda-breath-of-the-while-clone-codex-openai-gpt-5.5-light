@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 test("MVP 2 reveals Plateau landmarks after tower activation", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/app.html");
 
   await expect(page.locator("[data-landmark='tower']")).toContainText("Central Tower");
   await expect(page.locator("[data-landmark='shrine']")).toHaveCount(0);

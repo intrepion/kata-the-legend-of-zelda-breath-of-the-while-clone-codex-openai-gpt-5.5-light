@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 test("MVP 5 completes the physics shrine with block, plate, and spirit token", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/app.html");
   await page.evaluate(() => {
     localStorage.clear();
     window.__wildreachTest?.activateTower();

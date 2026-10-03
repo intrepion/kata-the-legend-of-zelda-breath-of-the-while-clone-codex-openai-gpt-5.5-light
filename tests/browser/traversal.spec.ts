@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 test("MVP 3 supports authored climbing and gliding traversal", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/app.html");
 
   await page.evaluate(() => window.__wildreachTest?.movePlayer(15, 0, -22));
   await page.keyboard.down("e");

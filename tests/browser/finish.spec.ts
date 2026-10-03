@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 test("MVP 6 supports enemy camp, pause menu, and Plateau completion", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/app.html");
   await page.evaluate(() => {
     window.__wildreachTest?.clearProgress();
     window.__wildreachTest?.activateTower();

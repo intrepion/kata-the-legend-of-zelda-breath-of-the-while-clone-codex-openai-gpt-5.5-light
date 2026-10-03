@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wildreach Adventure</title>
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="game-canvas" aria-label="Wildreach Adventure game scene"></canvas>
+      <div id="hud" aria-live="polite">
+        <div class="brand">Wildreach</div>
+        <div id="status-line">Find the tower.</div>
+        <div id="stamina" aria-label="Stamina">STA 100</div>
+        <ul id="landmarks" aria-label="Discovered landmarks"></ul>
+      </div>
+      <div id="map-sketch" aria-label="Map sketch">
+        <strong>Plateau Sketch</strong>
+        <span>Tower · Shrine · Camp · Vista</span>
+      </div>
+      <div id="captions" aria-live="assertive"></div>
+      <div id="pause-menu" aria-label="Pause menu">
+        <strong>Paused</strong>
+        <button type="button" data-action="resume">Resume</button>
+        <button type="button" data-action="restart">Restart slice</button>
+        <button type="button" data-action="audio">Audio on/off</button>
+        <button type="button" data-action="clear">Clear saved progress</button>
+        <label><input id="reduced-motion" type="checkbox" /> Reduced motion</label>
+        <p>WASD move · Mouse orbit · Space jump/glide · E interact/climb · M map</p>
+      </div>
+      <div id="prompt"></div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

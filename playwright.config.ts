@@ -4,7 +4,7 @@ export default defineConfig({
   testDir: "./tests/browser",
   fullyParallel: false,
   use: {
-    baseURL: "http://127.0.0.1:4173",
+    baseURL: "http://127.0.0.1:4173/app.html",
     trace: "on-first-retry",
     ...devices["Desktop Chrome"]
   },

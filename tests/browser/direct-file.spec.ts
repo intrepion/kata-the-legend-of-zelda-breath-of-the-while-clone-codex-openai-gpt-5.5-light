@@ -13,3 +13,15 @@ test("direct file bundle renders the game shell without console errors", async (
   await expect(page.locator("#game-canvas")).toBeVisible();
   expect(errors).toEqual([]);
 });
+
+test("root index opens directly from file protocol", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") errors.push(message.text());
+  });
+
+  await page.goto(pathToFileURL(resolve("index.html")).href);
+  await expect(page.locator("#status-line")).toContainText("Find the tower");
+  await expect(page.locator("#game-canvas")).toBeVisible();
+  expect(errors).toEqual([]);
+});

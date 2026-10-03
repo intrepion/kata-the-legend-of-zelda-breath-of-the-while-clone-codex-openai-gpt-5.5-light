@@ -15,9 +15,11 @@ if (!js) throw new Error("Missing bundled JS asset");
 
 const jsSource = await readFile(join(fileDist, "assets", js), "utf8");
 const cssSource = css ? await readFile(join(fileDist, "assets", css), "utf8") : "";
-let html = await readFile(join(dist, "index.html"), "utf8");
+let html = await readFile(join(dist, "app.html"), "utf8");
 html = html
   .replace(/<script[^>]+src="\/assets\/[^"]+"><\/script>/g, "")
   .replace(/<link[^>]+href="\/assets\/[^"]+">/g, "")
-  .replace("</head>", `<style>${cssSource}</style><script type="module">${jsSource}</script></head>`);
+  .replace("</head>", `<style>${cssSource}</style><script>${jsSource}</script></head>`);
+html = html.replace(/[ \t]+$/gm, "");
 await writeFile(join(fileDist, "index.html"), html);
+await writeFile("index.html", html);

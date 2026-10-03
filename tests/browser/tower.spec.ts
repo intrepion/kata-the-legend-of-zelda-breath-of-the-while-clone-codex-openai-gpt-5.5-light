@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 test("MVP 4 tower activation reveals landmarks, unlocks glider, and shows map sketch", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/app.html");
   await page.evaluate(() => {
     localStorage.clear();
     window.__wildreachTest?.movePlayer(0, 0, -18);
