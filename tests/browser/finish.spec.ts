@@ -18,6 +18,16 @@ test("MVP 6 supports enemy camp, pause menu, and Plateau completion", async ({ p
 
   await page.keyboard.press("Escape");
   await expect(page.locator("#pause-menu")).toBeVisible();
+  await page.locator("#reduced-motion").check();
+  await expect(page.locator("body")).toHaveClass(/reduced-motion/);
+  await page.locator("[data-action='clear']").click();
+  expect(await page.evaluate(() => window.__wildreachTest?.progress().towerActivated)).toBe(false);
+  await page.locator("[data-action='resume']").click();
+  await expect(page.locator("#pause-menu")).toBeHidden();
+
+  await page.evaluate(() => window.__wildreachTest?.activateTower());
+  await page.keyboard.press("Escape");
+  await expect(page.locator("#pause-menu")).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(page.locator("#pause-menu")).toBeHidden();
 

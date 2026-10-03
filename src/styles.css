@@ -79,6 +79,10 @@ body,
   opacity: 1;
 }
 
+body.reduced-motion #prompt {
+  transition: none;
+}
+
 #map-sketch {
   position: fixed;
   top: 18px;

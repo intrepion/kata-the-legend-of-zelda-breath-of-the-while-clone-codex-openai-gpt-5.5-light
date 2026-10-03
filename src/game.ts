@@ -41,6 +41,7 @@ export class WildreachGame {
     createWorld(this.scene);
     this.scene.add(this.player.group);
     window.addEventListener("resize", () => this.resize());
+    this.attachPauseMenu();
     this.resize();
     this.exposeTestHook();
   }
@@ -167,6 +168,32 @@ export class WildreachGame {
       this.paused = !this.paused;
     }
     this.pauseWasDown = pauseDown;
+  }
+
+  private attachPauseMenu(): void {
+    document.querySelector<HTMLButtonElement>("[data-action='resume']")?.addEventListener("click", () => {
+      this.paused = false;
+    });
+    document.querySelector<HTMLButtonElement>("[data-action='restart']")?.addEventListener("click", () => {
+      this.player.setPosition(-8, 0, 8);
+      this.paused = false;
+      this.caption = "Slice restarted.";
+    });
+    document.querySelector<HTMLButtonElement>("[data-action='audio']")?.addEventListener("click", () => {
+      this.caption = this.caption === "Audio muted." ? "Audio enabled." : "Audio muted.";
+    });
+    document.querySelector<HTMLButtonElement>("[data-action='clear']")?.addEventListener("click", () => {
+      clearProgress();
+      this.progress = loadProgress();
+      this.caption = "Saved progress cleared.";
+    });
+    document.querySelector<HTMLInputElement>("#reduced-motion")?.addEventListener("change", (event) => {
+      const target = event.currentTarget;
+      if (!(target instanceof HTMLInputElement)) return;
+      const reduced = target.checked;
+      document.body.classList.toggle("reduced-motion", reduced);
+      this.caption = reduced ? "Reduced motion enabled." : "Reduced motion disabled.";
+    });
   }
 }
 
