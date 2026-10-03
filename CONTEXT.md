@@ -16,6 +16,10 @@ _Avoid_: Level, map, zone
 The first playable vertical slice: a bounded region with a tower, authored traversal, an optional enemy camp, and one shrine that awards a spirit token.
 _Avoid_: MVP, demo, first level
 
+**Bowl Upland**:
+The Plateau Slice terrain shape: a readable basin with high and low routes arranged around a central tower.
+_Avoid_: Open world, terrain chunk, overworld
+
 **Landmark**:
 A visible destination that attracts the player through silhouette, height, motion, light, smoke, or contrast.
 _Avoid_: Point of interest, marker, waypoint
@@ -28,6 +32,10 @@ _Avoid_: Quest marker, objective arrow, waypoint
 A high or open view that confirms progress, previews future destinations, or closes a traversal sequence.
 _Avoid_: Viewpoint, overlook, scenic spot
 
+**Final Vista**:
+The closing destination reached after shrine completion that confirms the Plateau Slice is complete.
+_Avoid_: End screen, finish line
+
 **Tower**:
 A high landmark that reveals region knowledge and gives the player a strategic view of the surrounding wilderness.
 _Avoid_: Map unlock, beacon
@@ -35,6 +43,10 @@ _Avoid_: Map unlock, beacon
 **Tower Reveal**:
 The tower activation moment that exposes shrine light, camp smoke, climbable route hints, and a minimal region sketch.
 _Avoid_: Map completion, objective unlock
+
+**Map Sketch**:
+A minimal parchment-style overlay shown after tower activation with the tower, shrine, camp, recovery point, and player marker.
+_Avoid_: Full map, minimap, navigation menu
 
 **Glider**:
 The traversal tool earned at the tower that lets the player cross height and distance after leaving the summit.
@@ -47,6 +59,10 @@ _Avoid_: Dungeon, puzzle room, level
 **Physics Shrine**:
 A shrine centered on blocks, pressure plates, ramps, and spatial reasoning.
 _Avoid_: Physics level, block puzzle
+
+**Ruin Chamber**:
+The same-scene outdoor-adjacent shrine space that contains the physics shrine challenge.
+_Avoid_: Interior dungeon, separate scene
 
 **Pressure Plate**:
 A shrine mechanism that responds to a block or player weight and opens the path toward the spirit token.
@@ -79,6 +95,10 @@ _Avoid_: Move, ability, control
 **Context Prompt**:
 A short on-screen prompt that appears only when the adventurer can perform a nearby interaction.
 _Avoid_: Tutorial text, instruction panel
+
+**Plateau Complete**:
+The completion state reached after the shrine is finished, a spirit token is earned, and the final vista is reached.
+_Avoid_: Game over, quest complete, victory screen
 
 **Enemy Camp**:
 A small hostile site that creates risk, rewards observation, and offers optional combat within the region.
