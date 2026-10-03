@@ -78,3 +78,24 @@ body,
 #prompt.visible {
   opacity: 1;
 }
+
+#map-sketch {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  display: none;
+  width: 250px;
+  min-height: 160px;
+  padding: 14px;
+  border: 1px solid rgb(70 52 28 / 0.35);
+  background:
+    radial-gradient(circle at 70% 30%, rgb(69 133 152 / 0.28), transparent 18%),
+    linear-gradient(135deg, #e8d49e, #caa769);
+  color: #2f2719;
+  box-shadow: 0 14px 28px rgb(30 24 18 / 0.28);
+}
+
+#map-sketch.visible {
+  display: grid;
+  gap: 12px;
+}

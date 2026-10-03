@@ -6,12 +6,17 @@ export class Hud {
   private readonly stamina = document.querySelector<HTMLDivElement>("#stamina");
   private readonly prompt = document.querySelector<HTMLDivElement>("#prompt");
   private readonly landmarks = document.querySelector<HTMLUListElement>("#landmarks");
+  private readonly mapSketch = document.querySelector<HTMLDivElement>("#map-sketch");
 
-  update(player: PlayerSnapshot, landmarks: Landmark[]): void {
+  update(player: PlayerSnapshot, landmarks: Landmark[], mapVisible: boolean, gliderUnlocked: boolean): void {
     if (this.stamina) this.stamina.textContent = `STA ${Math.round(player.stamina)} · ${player.mode}`;
     if (this.status) {
       const distanceToTower = Math.hypot(player.position.x, player.position.z + 18);
-      this.status.textContent = distanceToTower < 5 ? "Press E at the tower." : "Find the tower.";
+      this.status.textContent = gliderUnlocked
+        ? "Glider earned. Seek the shrine."
+        : distanceToTower < 5
+          ? "Press E at the tower."
+          : "Find the tower.";
     }
     if (this.prompt) {
       const nearTower = Math.hypot(player.position.x, player.position.z + 18) < 5;
@@ -30,5 +35,6 @@ export class Hud {
           })
       );
     }
+    this.mapSketch?.classList.toggle("visible", mapVisible);
   }
 }

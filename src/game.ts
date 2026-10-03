@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { FollowCamera } from "./camera";
 import { InputState } from "./input";
 import { revealedLandmarks } from "./landmarks";
+import { loadProgress, saveProgress, type SliceProgress } from "./persistence";
 import { PlayerController } from "./player";
 import { Hud } from "./ui";
 import { createWorld } from "./world";
@@ -14,8 +15,7 @@ export class WildreachGame {
   private readonly player = new PlayerController();
   private readonly followCamera: FollowCamera;
   private readonly hud = new Hud();
-  private towerActivated = false;
-  private gliderUnlocked = false;
+  private progress: SliceProgress = loadProgress();
   private lastTime = 0;
   private running = false;
 
@@ -47,13 +47,18 @@ export class WildreachGame {
     const canClimb = Math.hypot(before.position.x - 15, before.position.z + 22) < 5;
     const snapshot = this.player.update(this.input, dt, {
       canClimb,
-      hasGlider: this.gliderUnlocked
+      hasGlider: this.progress.gliderUnlocked
     });
     if (this.input.active("interact") && Math.hypot(snapshot.position.x, snapshot.position.z + 18) < 5) {
-      this.towerActivated = true;
+      this.activateTower();
     }
     this.followCamera.update(snapshot);
-    this.hud.update(snapshot, revealedLandmarks(this.towerActivated));
+    this.hud.update(
+      snapshot,
+      revealedLandmarks(this.progress.towerActivated),
+      this.input.active("map") && this.progress.towerActivated,
+      this.progress.gliderUnlocked
+    );
     this.renderer.render(this.scene, this.camera);
     requestAnimationFrame((next) => this.tick(next));
   }
@@ -70,17 +75,30 @@ export class WildreachGame {
     if (!import.meta.env.DEV && !import.meta.env.MODE.includes("test")) return;
     window.__wildreachTest = {
       player: () => this.player.snapshot(),
-      landmarks: () => revealedLandmarks(this.towerActivated),
+      progress: () => ({ ...this.progress }),
+      landmarks: () => revealedLandmarks(this.progress.towerActivated),
       activateTower: () => {
-        this.towerActivated = true;
+        this.activateTower();
       },
       unlockGlider: () => {
-        this.gliderUnlocked = true;
+        this.progress.gliderUnlocked = true;
+        saveProgress(this.progress);
       },
       movePlayer: (x: number, y: number, z: number) => {
         this.player.setPosition(x, y, z);
       }
     };
+  }
+
+  private activateTower(): void {
+    if (this.progress.towerActivated) return;
+    this.progress = {
+      ...this.progress,
+      towerActivated: true,
+      gliderUnlocked: true,
+      recoveryPoint: "tower"
+    };
+    saveProgress(this.progress);
   }
 }
 
@@ -88,6 +106,7 @@ declare global {
   interface Window {
     __wildreachTest?: {
       player: () => ReturnType<PlayerController["snapshot"]>;
+      progress: () => SliceProgress;
       landmarks: () => ReturnType<typeof revealedLandmarks>;
       activateTower: () => void;
       unlockGlider: () => void;
