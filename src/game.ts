@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { FollowCamera } from "./camera";
 import { InputState } from "./input";
+import { revealedLandmarks } from "./landmarks";
 import { PlayerController } from "./player";
 import { Hud } from "./ui";
 import { createWorld } from "./world";
@@ -13,6 +14,7 @@ export class WildreachGame {
   private readonly player = new PlayerController();
   private readonly followCamera: FollowCamera;
   private readonly hud = new Hud();
+  private towerActivated = false;
   private lastTime = 0;
   private running = false;
 
@@ -41,8 +43,11 @@ export class WildreachGame {
     const dt = Math.min((time - this.lastTime) / 1000, 0.05);
     this.lastTime = time;
     const snapshot = this.player.update(this.input, dt);
+    if (this.input.active("interact") && Math.hypot(snapshot.position.x, snapshot.position.z + 18) < 5) {
+      this.towerActivated = true;
+    }
     this.followCamera.update(snapshot);
-    this.hud.update(snapshot);
+    this.hud.update(snapshot, revealedLandmarks(this.towerActivated));
     this.renderer.render(this.scene, this.camera);
     requestAnimationFrame((next) => this.tick(next));
   }
@@ -58,7 +63,11 @@ export class WildreachGame {
   private exposeTestHook(): void {
     if (!import.meta.env.DEV && !import.meta.env.MODE.includes("test")) return;
     window.__wildreachTest = {
-      player: () => this.player.snapshot()
+      player: () => this.player.snapshot(),
+      landmarks: () => revealedLandmarks(this.towerActivated),
+      activateTower: () => {
+        this.towerActivated = true;
+      }
     };
   }
 }
@@ -67,6 +76,8 @@ declare global {
   interface Window {
     __wildreachTest?: {
       player: () => ReturnType<PlayerController["snapshot"]>;
+      landmarks: () => ReturnType<typeof revealedLandmarks>;
+      activateTower: () => void;
     };
   }
 }

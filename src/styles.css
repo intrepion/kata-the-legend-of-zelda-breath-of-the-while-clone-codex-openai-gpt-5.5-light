@@ -43,9 +43,22 @@ body,
 
 #status-line,
 #stamina,
-#prompt {
+#prompt,
+#landmarks {
   font-size: 14px;
   line-height: 1.3;
+}
+
+#landmarks {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#landmarks li {
+  color: #d4f5ff;
 }
 
 #prompt {
