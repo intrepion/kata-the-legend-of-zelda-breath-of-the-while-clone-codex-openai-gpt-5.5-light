@@ -1,8 +1,9 @@
 import * as THREE from "three";
 import { FollowCamera } from "./camera";
+import { initialCampState, updateCamp, type CampState } from "./camp";
 import { InputState } from "./input";
 import { revealedLandmarks } from "./landmarks";
-import { loadProgress, saveProgress, type SliceProgress } from "./persistence";
+import { clearProgress, loadProgress, saveProgress, type SliceProgress } from "./persistence";
 import {
   claimSpiritToken,
   initialShrineState,
@@ -23,6 +24,10 @@ export class WildreachGame {
   private readonly hud = new Hud();
   private progress: SliceProgress = loadProgress();
   private shrine: ShrineState = { ...initialShrineState };
+  private camp: CampState = { ...initialCampState };
+  private paused = false;
+  private caption = "";
+  private pauseWasDown = false;
   private lastTime = 0;
   private running = false;
 
@@ -51,6 +56,13 @@ export class WildreachGame {
     const dt = Math.min((time - this.lastTime) / 1000, 0.05);
     this.lastTime = time;
     const before = this.player.snapshot();
+    this.updatePause();
+    if (this.paused) {
+      this.hud.update(before, revealedLandmarks(this.progress.towerActivated), false, this.progress, true, this.caption);
+      this.renderer.render(this.scene, this.camera);
+      requestAnimationFrame((next) => this.tick(next));
+      return;
+    }
     const canClimb = Math.hypot(before.position.x - 15, before.position.z + 22) < 5;
     const snapshot = this.player.update(this.input, dt, {
       canClimb,
@@ -61,13 +73,17 @@ export class WildreachGame {
     }
     if (this.input.active("interact")) {
       this.updateShrine(snapshot.position);
+      this.updateVista(snapshot.position);
     }
+    this.camp = updateCamp(this.camp, snapshot.position, this.input.primary);
     this.followCamera.update(snapshot);
     this.hud.update(
       snapshot,
       revealedLandmarks(this.progress.towerActivated),
       this.input.active("map") && this.progress.towerActivated,
-      this.progress.gliderUnlocked
+      this.progress,
+      this.paused,
+      this.caption
     );
     this.renderer.render(this.scene, this.camera);
     requestAnimationFrame((next) => this.tick(next));
@@ -87,6 +103,7 @@ export class WildreachGame {
       player: () => this.player.snapshot(),
       progress: () => ({ ...this.progress }),
       shrine: () => ({ ...this.shrine, block: { ...this.shrine.block } }),
+      camp: () => ({ ...this.camp }),
       landmarks: () => revealedLandmarks(this.progress.towerActivated),
       activateTower: () => {
         this.activateTower();
@@ -97,6 +114,10 @@ export class WildreachGame {
       },
       movePlayer: (x: number, y: number, z: number) => {
         this.player.setPosition(x, y, z);
+      },
+      clearProgress: () => {
+        clearProgress();
+        this.progress = loadProgress();
       }
     };
   }
@@ -109,6 +130,7 @@ export class WildreachGame {
       gliderUnlocked: true,
       recoveryPoint: "tower"
     };
+    this.caption = "Tower activated. Glider earned.";
     saveProgress(this.progress);
   }
 
@@ -123,8 +145,28 @@ export class WildreachGame {
         spiritTokens: this.progress.spiritTokens + 1,
         recoveryPoint: "shrine"
       };
+      this.caption = "Shrine complete. Spirit token earned.";
       saveProgress(this.progress);
     }
+  }
+
+  private updateVista(position: { x: number; y: number; z: number }): void {
+    if (!this.progress.shrineCompleted || this.progress.plateauComplete) return;
+    if (Math.hypot(position.x - 34, position.z + 48) > 4) return;
+    this.progress = {
+      ...this.progress,
+      plateauComplete: true
+    };
+    this.caption = "Plateau Complete.";
+    saveProgress(this.progress);
+  }
+
+  private updatePause(): void {
+    const pauseDown = this.input.active("pause");
+    if (pauseDown && !this.pauseWasDown) {
+      this.paused = !this.paused;
+    }
+    this.pauseWasDown = pauseDown;
   }
 }
 
@@ -134,10 +176,12 @@ declare global {
       player: () => ReturnType<PlayerController["snapshot"]>;
       progress: () => SliceProgress;
       shrine: () => ShrineState;
+      camp: () => CampState;
       landmarks: () => ReturnType<typeof revealedLandmarks>;
       activateTower: () => void;
       unlockGlider: () => void;
       movePlayer: (x: number, y: number, z: number) => void;
+      clearProgress: () => void;
     };
   }
 }

@@ -7,7 +7,7 @@
     "dev": "vite --host 127.0.0.1",
     "build": "tsc && vite build",
     "bundle:file": "npm run build && node scripts/build-file-bundle.mjs",
-    "check": "npm run build && npm run test && npm run test:browser",
+    "check": "npm run build && npm run test && npm run bundle:file && npm run test:browser",
     "test": "vitest run",
     "test:browser": "playwright test"
   },
