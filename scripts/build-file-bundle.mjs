@@ -22,7 +22,8 @@ let html = await readFile(join(dist, "app.html"), "utf8");
 html = html
   .replace(/<script[^>]+src="\/assets\/[^"]+"><\/script>/g, "")
   .replace(/<link[^>]+href="\/assets\/[^"]+">/g, "")
-  .replace("</head>", () => `<style>${cssSource}</style><script>${jsSource}</script></head>`);
+  .replace("</head>", () => `<style>${cssSource}</style></head>`)
+  .replace("</body>", () => `<script>${jsSource}</script></body>`);
 html = html.replace(/[ \t]+$/gm, "");
 await writeFile(join(fileDist, "index.html"), html);
 await writeFile("index.html", html);

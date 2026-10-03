@@ -48,6 +48,7 @@ export class WildreachGame {
 
   start(): void {
     this.running = true;
+    window.__wildreachBooted = true;
     this.lastTime = performance.now();
     requestAnimationFrame((time) => this.tick(time));
   }
@@ -210,5 +211,6 @@ declare global {
       movePlayer: (x: number, y: number, z: number) => void;
       clearProgress: () => void;
     };
+    __wildreachBooted?: boolean;
   }
 }
