@@ -13,7 +13,10 @@ const js = files.find((file) => file.endsWith(".js"));
 const css = files.find((file) => file.endsWith(".css"));
 if (!js) throw new Error("Missing bundled JS asset");
 
-const jsSource = await readFile(join(fileDist, "assets", js), "utf8");
+const jsSource = (await readFile(join(fileDist, "assets", js), "utf8")).replaceAll(
+  "</script",
+  "<\\/script"
+);
 const cssSource = css ? await readFile(join(fileDist, "assets", css), "utf8") : "";
 let html = await readFile(join(dist, "app.html"), "utf8");
 html = html
