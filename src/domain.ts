@@ -22,6 +22,7 @@ export type PlayerSnapshot = {
   yaw: number;
   grounded: boolean;
   stamina: number;
+  mode: "walking" | "climbing" | "gliding";
 };
 
 export const MAX_STAMINA = 100;

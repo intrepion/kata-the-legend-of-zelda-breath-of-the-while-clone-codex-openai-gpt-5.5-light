@@ -8,7 +8,7 @@ export class Hud {
   private readonly landmarks = document.querySelector<HTMLUListElement>("#landmarks");
 
   update(player: PlayerSnapshot, landmarks: Landmark[]): void {
-    if (this.stamina) this.stamina.textContent = `STA ${Math.round(player.stamina)}`;
+    if (this.stamina) this.stamina.textContent = `STA ${Math.round(player.stamina)} · ${player.mode}`;
     if (this.status) {
       const distanceToTower = Math.hypot(player.position.x, player.position.z + 18);
       this.status.textContent = distanceToTower < 5 ? "Press E at the tower." : "Find the tower.";

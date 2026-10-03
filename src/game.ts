@@ -15,6 +15,7 @@ export class WildreachGame {
   private readonly followCamera: FollowCamera;
   private readonly hud = new Hud();
   private towerActivated = false;
+  private gliderUnlocked = false;
   private lastTime = 0;
   private running = false;
 
@@ -42,7 +43,12 @@ export class WildreachGame {
     if (!this.running) return;
     const dt = Math.min((time - this.lastTime) / 1000, 0.05);
     this.lastTime = time;
-    const snapshot = this.player.update(this.input, dt);
+    const before = this.player.snapshot();
+    const canClimb = Math.hypot(before.position.x - 15, before.position.z + 22) < 5;
+    const snapshot = this.player.update(this.input, dt, {
+      canClimb,
+      hasGlider: this.gliderUnlocked
+    });
     if (this.input.active("interact") && Math.hypot(snapshot.position.x, snapshot.position.z + 18) < 5) {
       this.towerActivated = true;
     }
@@ -67,6 +73,12 @@ export class WildreachGame {
       landmarks: () => revealedLandmarks(this.towerActivated),
       activateTower: () => {
         this.towerActivated = true;
+      },
+      unlockGlider: () => {
+        this.gliderUnlocked = true;
+      },
+      movePlayer: (x: number, y: number, z: number) => {
+        this.player.setPosition(x, y, z);
       }
     };
   }
@@ -78,6 +90,8 @@ declare global {
       player: () => ReturnType<PlayerController["snapshot"]>;
       landmarks: () => ReturnType<typeof revealedLandmarks>;
       activateTower: () => void;
+      unlockGlider: () => void;
+      movePlayer: (x: number, y: number, z: number) => void;
     };
   }
 }
