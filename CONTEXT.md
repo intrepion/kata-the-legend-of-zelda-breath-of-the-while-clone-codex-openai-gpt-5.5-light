@@ -96,6 +96,18 @@ _Avoid_: Move, ability, control
 A short on-screen prompt that appears only when the adventurer can perform a nearby interaction.
 _Avoid_: Tutorial text, instruction panel
 
+**Control Map**:
+The canonical keyboard and mouse bindings for movement, camera, traversal, combat, map, pause, and interaction.
+_Avoid_: Keybinds, input scheme
+
+**Pause Menu**:
+The minimal menu for resuming, restarting the slice, reading controls, toggling audio, and clearing slice progress.
+_Avoid_: Inventory, options hub, main menu
+
+**Accessibility Floor**:
+The minimum playability standard: reduced motion, readable high-contrast HUD, important audio captions, and a keyboard-only core loop.
+_Avoid_: Accessibility mode, assist mode
+
 **Plateau Complete**:
 The completion state reached after the shrine is finished, a spirit token is earned, and the final vista is reached.
 _Avoid_: Game over, quest complete, victory screen
@@ -123,6 +135,10 @@ _Avoid_: Checkpoint, save point, respawn
 **Slice Progress**:
 The locally persisted completion state for tower activation, glider ownership, shrine completion, spirit tokens, and the latest recovery point.
 _Avoid_: Save file, account progress, profile
+
+**Test Hook**:
+A hidden non-production interface used by browser smoke tests for deterministic setup and reset without replacing real player input.
+_Avoid_: Debug panel, cheat, dev menu
 
 **Spirit Token**:
 The progression reward earned from completing a shrine.
