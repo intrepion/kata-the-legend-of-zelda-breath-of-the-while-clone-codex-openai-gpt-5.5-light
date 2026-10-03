@@ -2,6 +2,7 @@ export type SliceProgress = {
   towerActivated: boolean;
   gliderUnlocked: boolean;
   shrineCompleted: boolean;
+  plateauComplete: boolean;
   spiritTokens: number;
   recoveryPoint: "start" | "tower" | "shrine";
 };
@@ -10,6 +11,7 @@ export const initialProgress: SliceProgress = {
   towerActivated: false,
   gliderUnlocked: false,
   shrineCompleted: false,
+  plateauComplete: false,
   spiritTokens: 0,
   recoveryPoint: "start"
 };

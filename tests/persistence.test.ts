@@ -32,6 +32,7 @@ describe("Slice Progress persistence", () => {
         towerActivated: true,
         gliderUnlocked: true,
         shrineCompleted: false,
+        plateauComplete: false,
         spiritTokens: 0,
         recoveryPoint: "tower"
       },

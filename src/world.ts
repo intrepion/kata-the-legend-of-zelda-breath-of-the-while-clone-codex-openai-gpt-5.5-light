@@ -95,7 +95,23 @@ function makeShrine(): THREE.Object3D[] {
     new THREE.MeshStandardMaterial({ color: 0x4cc9ff, emissive: 0x1595ff, emissiveIntensity: 1.6 })
   );
   glow.position.y = 3;
-  return [base, glow];
+  const block = new THREE.Mesh(
+    new THREE.BoxGeometry(1.4, 1.4, 1.4),
+    new THREE.MeshStandardMaterial({ color: 0xc1a36b, roughness: 0.85 })
+  );
+  block.position.set(-3, 0.7, 1);
+  block.name = "Shrine Block";
+  const plate = new THREE.Mesh(
+    new THREE.CylinderGeometry(1.1, 1.1, 0.12, 24),
+    new THREE.MeshStandardMaterial({ color: 0x4cc9ff, emissive: 0x0e78b2, emissiveIntensity: 0.6 })
+  );
+  plate.position.set(1.5, 0.08, 0);
+  const token = new THREE.Mesh(
+    new THREE.OctahedronGeometry(0.55),
+    new THREE.MeshStandardMaterial({ color: 0xfff0a6, emissive: 0xffc857, emissiveIntensity: 1.2 })
+  );
+  token.position.set(4, 2.1, -2);
+  return [base, glow, block, plate, token];
 }
 
 function makeCamp(): THREE.Object3D[] {

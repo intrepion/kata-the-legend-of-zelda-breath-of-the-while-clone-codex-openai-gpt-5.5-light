@@ -3,6 +3,12 @@ import { FollowCamera } from "./camera";
 import { InputState } from "./input";
 import { revealedLandmarks } from "./landmarks";
 import { loadProgress, saveProgress, type SliceProgress } from "./persistence";
+import {
+  claimSpiritToken,
+  initialShrineState,
+  shoveBlockToPlate,
+  type ShrineState
+} from "./shrine";
 import { PlayerController } from "./player";
 import { Hud } from "./ui";
 import { createWorld } from "./world";
@@ -16,6 +22,7 @@ export class WildreachGame {
   private readonly followCamera: FollowCamera;
   private readonly hud = new Hud();
   private progress: SliceProgress = loadProgress();
+  private shrine: ShrineState = { ...initialShrineState };
   private lastTime = 0;
   private running = false;
 
@@ -52,6 +59,9 @@ export class WildreachGame {
     if (this.input.active("interact") && Math.hypot(snapshot.position.x, snapshot.position.z + 18) < 5) {
       this.activateTower();
     }
+    if (this.input.active("interact")) {
+      this.updateShrine(snapshot.position);
+    }
     this.followCamera.update(snapshot);
     this.hud.update(
       snapshot,
@@ -76,6 +86,7 @@ export class WildreachGame {
     window.__wildreachTest = {
       player: () => this.player.snapshot(),
       progress: () => ({ ...this.progress }),
+      shrine: () => ({ ...this.shrine, block: { ...this.shrine.block } }),
       landmarks: () => revealedLandmarks(this.progress.towerActivated),
       activateTower: () => {
         this.activateTower();
@@ -100,6 +111,21 @@ export class WildreachGame {
     };
     saveProgress(this.progress);
   }
+
+  private updateShrine(position: { x: number; y: number; z: number }): void {
+    const shoved = shoveBlockToPlate(this.shrine, position);
+    const claimed = claimSpiritToken(shoved, position);
+    this.shrine = claimed;
+    if (claimed.completed && !this.progress.shrineCompleted) {
+      this.progress = {
+        ...this.progress,
+        shrineCompleted: true,
+        spiritTokens: this.progress.spiritTokens + 1,
+        recoveryPoint: "shrine"
+      };
+      saveProgress(this.progress);
+    }
+  }
 }
 
 declare global {
@@ -107,6 +133,7 @@ declare global {
     __wildreachTest?: {
       player: () => ReturnType<PlayerController["snapshot"]>;
       progress: () => SliceProgress;
+      shrine: () => ShrineState;
       landmarks: () => ReturnType<typeof revealedLandmarks>;
       activateTower: () => void;
       unlockGlider: () => void;
