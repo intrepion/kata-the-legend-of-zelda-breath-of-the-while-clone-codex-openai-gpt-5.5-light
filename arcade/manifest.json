@@ -1,6 +1,43 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "gameId": "kata-the-legend-of-zelda-breath-of-the-while-clone-codex-openai-gpt-5.5-light",
   "playUrl": "https://intrepion.github.io/kata-the-legend-of-zelda-breath-of-the-while-clone-codex-openai-gpt-5.5-light/",
-  "screenshots": []
+  "screenshots": [
+    {
+      "path": "arcade/screenshots/ci-20261102-01.jpg",
+      "sha256": "d3ff2b12c0992ba56ae5c33ebe4539f3d9057e4a3f02052521eeecfb7e067cc7",
+      "alt": "Wildreach Adventure gameplay, view 1",
+      "provenance": {
+        "kind": "ci_gameplay_capture",
+        "sourcePath": "arcade/capture-evidence/ci-20261102-01.png",
+        "sourceSha256": "0ef285331b7d21015b81ed2e9c6866b75d29d81baee7f70db2f06c5f21db2208",
+        "captureCommit": "09fd9659b723c46a1f84d8e14acf76561c5e294d",
+        "workflowRunId": "41447858393",
+        "inputHashes": {
+          "index.html": "3081578527b09580e05fc97bd1f4a1cde4e6af0279da6aecc67ff2e22ef815e7"
+        },
+        "publishedFilesVerifiedAt": "2026-11-02T19:01:20Z",
+        "captureRecordPath": "arcade/capture-evidence/ci-20261102-record.json",
+        "captureRecordSha256": "f83099819f0d7a26f2d227a6d041c360c128521ef3a3b8a23059a401de8cbd6d"
+      }
+    },
+    {
+      "path": "arcade/screenshots/ci-20261102-02.jpg",
+      "sha256": "c774f81fe0ae151098f1b8f096922d94125f47d7b3a54cfed132311e22e27833",
+      "alt": "Wildreach Adventure gameplay, view 2",
+      "provenance": {
+        "kind": "ci_gameplay_capture",
+        "sourcePath": "arcade/capture-evidence/ci-20261102-02.png",
+        "sourceSha256": "c063137f2d3622b00f632a8f67e70b758ab2cc6e85867f047ac65b5d49b87ada",
+        "captureCommit": "09fd9659b723c46a1f84d8e14acf76561c5e294d",
+        "workflowRunId": "41447858393",
+        "inputHashes": {
+          "index.html": "3081578527b09580e05fc97bd1f4a1cde4e6af0279da6aecc67ff2e22ef815e7"
+        },
+        "publishedFilesVerifiedAt": "2026-11-02T19:01:20Z",
+        "captureRecordPath": "arcade/capture-evidence/ci-20261102-record.json",
+        "captureRecordSha256": "f83099819f0d7a26f2d227a6d041c360c128521ef3a3b8a23059a401de8cbd6d"
+      }
+    }
+  ]
 }

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "workflowCommit": "67d4be709bcf0f0736337ffd879f68fa434fe681",
+  "sourceCommit": "09fd9659b723c46a1f84d8e14acf76561c5e294d",
+  "runId": "41447858393",
+  "url": "http://127.0.0.1:4295/",
+  "inputs": {
+    "index.html": "3081578527b09580e05fc97bd1f4a1cde4e6af0279da6aecc67ff2e22ef815e7"
+  },
+  "browser": "153.0.8010.12",
+  "viewport": {
+    "width": 1280,
+    "height": 1000
+  },
+  "screenshots": [
+    "wildreach-01.png",
+    "wildreach-02.png"
+  ]
+}
